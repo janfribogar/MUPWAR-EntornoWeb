@@ -1,0 +1,34 @@
+version: '3.6'
+
+## SERVICIOS
+services:
+# Contenedor de elasticsearch
+  elasticsearch:
+    image: elasticsearch:7.9.3
+    container_name: en001ej05es
+    environment:
+      - discovery.type=single-node
+    networks:
+      - elastic
+    ports:
+      - 9200:9200
+      - 9300:9300
+# Contenedor de kibana
+  kibana:
+    image: kibana:7.9.3
+    container_name: en001ej05kb
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+    networks:
+      - elastic
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+
+## REDES
+networks:
+# Red para elasticsearch y kibana (bridge)
+  elastic:
+    driver: bridge
