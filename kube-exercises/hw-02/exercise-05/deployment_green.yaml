@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-v2
+  labels:
+    app: nginx-v2
+    release: green
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-v2
+  template:
+    metadata:
+      labels:
+        app: nginx-v2
+    spec:
+      containers:
+      - name: nginx-v2
+        image: nginx:1.19.5-alpine
+        ports:
+        - containerPort: 80
