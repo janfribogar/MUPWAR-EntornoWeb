@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-cicd-hw-05
+  labels:
+    app: nginx-cicd-hw-05
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-cicd-hw-05
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nginx-cicd-hw-05
+    spec:
+      containers:
+      - name: nginx-cicd-hw-05
+        image: janfribogar/cicd-hw-05:1.0
+        ports:
+        - containerPort: 80
